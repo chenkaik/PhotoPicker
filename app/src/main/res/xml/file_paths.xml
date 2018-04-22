@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="utf-8"?>
+<paths>
+    <!--file-path 表示你应用内部存储区域的文件的子目录。
+    这个子目录和getFilesDir()的返回值一样。
+    external-path 表示你应用外部存储区域的文件的子目录。
+    这个子目录和getExternalFilesDir()的返回值一样。
+    cache-path 表示你应用内部存储区域的缓存子目录。
+    这个子目录的根目录和getCacheDir()的返回值一样。
+    （如果你修改了provider和paths中的值，
+    需要把应用卸载重装或者开关机一下才能看到变化。）-->
+    <!--Environment.getExternalStorageDirectory()-->
+    <external-path
+        name="images"
+        path="" />
+</paths>
