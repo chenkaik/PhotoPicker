@@ -63,7 +63,8 @@ public class ImageLoader {
      */
     public static void load(@DrawableRes int resourceId, @NonNull ImageView imageView) {
         RequestOptions requestOptions = new RequestOptions()
-                .circleCrop()
+                //.circleCrop()
+                .centerCrop()
                 .dontAnimate();
         Glide.with(imageView.getContext())
                 .load(resourceId)

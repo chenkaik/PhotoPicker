@@ -1,5 +1,6 @@
 package common.photo.picker.widget;
 
+import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
 import android.content.res.TypedArray;
@@ -25,6 +26,7 @@ import common.photo.picker.Constants;
 import common.photo.picker.R;
 import common.photo.picker.adapter.PhotoAdapter;
 import common.photo.picker.listener.OnSelectorPhotoClickListener;
+import common.photo.picker.utils.PhotoPickerManager;
 
 /**
  * Created by chenKai on 2018/4/22.
@@ -179,18 +181,18 @@ public class PhotoPickerView extends FrameLayout{
      * 打开照片选择器选择照片
      */
     private void openPhotoPicker() {
-//        if (MultPhotoPickerView.ACTION_SELECT == mMultPhotoPickerAction) {
-//            PhotoPickerManager.startPicker((Activity) mContext, // Activity对象
-//                    mMaxPickerPhotoCount, // 选择照片的最大数量
-//                    mGridColumnCount, // 每行显示的列数
-//                    MultPhotoPickerView.ACTION_CROP == mMultPhotoPickerAction, // 是否支持裁剪，true支持，false不支持。支持裁剪时最多选择一张图片
-//                    isShowGif, // 是否显示gif格式图片.true显示，false不显示
-//                    isShowCamera, //  是否显示拍照按钮.true显示，false不显示
-//                    isPreviewEnable, // 是否支持预览.true支持预览，false不支持预览.
-//                    mSelectedPhotos); // 原始数据
-//        } else {
-//            PhotoPickerManager.startPicker((Activity) mContext);
-//        }
+        if (PhotoPickerView.ACTION_SELECT == mMultPhotoPickerAction) {
+            PhotoPickerManager.startPicker((Activity) mContext, // Activity对象
+                    mMaxPickerPhotoCount, // 选择照片的最大数量
+                    mGridColumnCount, // 每行显示的列数
+                    PhotoPickerView.ACTION_CROP == mMultPhotoPickerAction, // 是否支持裁剪，true支持，false不支持。支持裁剪时最多选择一张图片
+                    isShowGif, // 是否显示gif格式图片.true显示，false不显示
+                    isShowCamera, //  是否显示拍照按钮.true显示，false不显示
+                    isPreviewEnable, // 是否支持预览.true支持预览，false不支持预览.
+                    mSelectedPhotos); // 原始数据
+        } else {
+            PhotoPickerManager.startPicker((Activity) mContext);
+        }
     }
 
     /**

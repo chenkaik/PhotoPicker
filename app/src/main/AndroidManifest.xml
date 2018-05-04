@@ -47,7 +47,11 @@
 
         <activity
             android:name=".activity.PhotoPreviewActivity"
-            android:screenOrientation="portrait"/>
+            android:screenOrientation="portrait" />
+
+        <activity
+            android:name=".activity.PhotoPickerActivity"
+            android:screenOrientation="portrait" />
     </application>
 
 </manifest>

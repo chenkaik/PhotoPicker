@@ -5,13 +5,14 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
-    tools:context=".activity.MainActivity">
+    tools:context=".activity.PhotoPickerActivity">
 
-    <common.photo.picker.widget.PhotoPickerView
-        android:id="@+id/photo_picker"
+    <common.photo.picker.widget.TitleBar
+        android:id="@+id/title_bar_photo_picker"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        app:is_show_gif="true"
-        app:max_picker_photo_count="9" />
+        android:background="?colorPrimary"
+        app:right_text="@string/title_right_complete"
+        app:title_name="@string/title_photo_picker" />
 
 </LinearLayout>

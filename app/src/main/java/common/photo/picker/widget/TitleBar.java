@@ -117,6 +117,7 @@ public class TitleBar extends FrameLayout {
                 }
             };
             mIvTitleLeft.setOnClickListener(mLeftOnClickListener);
+            mTvTitleLeft.setOnClickListener(mLeftOnClickListener); // 添加点击文字也可以返回上一个页面
         }
     }
 
