@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <declare-styleable name="PhotoPickerView">
+        <attr name="action" format="enum">
+            <enum name="action_select" value="1" />
+            <enum name="action_only_show" value="2" />
+            <enum name="action_crop" value="3" />
+        </attr>
+        <!--设置最多选择照片数量，在crop时值自动设置为1-->
+        <attr name="max_picker_photo_count" format="integer" />
+        <!--是否显示gif图片-->
+        <attr name="is_show_gif" format="boolean" />
+        <!--设置在选择照片界面点击照片时是否支持预览，true支持，false不支持。默认支持。-->
+        <attr name="is_preview_enable" format="boolean" />
+        <!--设置在选择照片界面是否支持拍照，true支持，false不支持，默认支持-->
+        <attr name="is_show_camera" format="boolean" />
+        <!--设置在选择照片界面显示照片的列数，默认为3列-->
+        <attr name="column_count" format="integer" />
+    </declare-styleable>
+
+    <declare-styleable name="TitleBar">
+        <attr name="title_name" format="string" />
+        <attr name="left_text" format="string" />
+        <attr name="right_text" format="string" />
+        <attr name="left_icon" format="reference" />
+        <attr name="right_icon" format="reference" />
+    </declare-styleable>
+
+</resources>

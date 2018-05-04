@@ -2,9 +2,9 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="common.photo.picker">
 
-    <!--拍照权限-->
+    <!-- 拍照权限 -->
     <uses-permission android:name="android.permission.CAMERA" />
-    <!--写权限-->
+    <!-- 写权限 -->
     <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
 
     <application
@@ -23,13 +23,17 @@
         </activity>
 
         <!-- Android 7.0拍照相关 start -->
-        <!-- android:authorities属性为一个URI authority
+        <!--
+        android:authorities属性为一个URI authority
         （authorities可以随意填写，但是要保证使用时与authority保持一致，
-        推荐applicationId.fileprovider，以免定义重复）-->
+        推荐applicationId.fileprovider，以免定义重复）
+        -->
         <!-- 设置android:exported属性为false；FileProvider不需要公开 -->
         <!-- 设置android:grantUriPermissions属性为true，为了允许你进行临时访问文件的授权 -->
-        <!-- 一个FileProvider只能生成一个content URI 对应你事先指定目录下的文件。
-        对于指定一个目录，使用元素的子元素，在XML中指定它的存储区域和路径 -->
+        <!--
+        一个FileProvider只能生成一个content URI 对应你事先指定目录下的文件。
+        对于指定一个目录，使用元素的子元素，在XML中指定它的存储区域和路径
+        -->
         <provider
             android:name="android.support.v4.content.FileProvider"
             android:authorities="common.photo.picker"
@@ -41,6 +45,9 @@
         </provider>
         <!-- Android 7.0拍照相关 end -->
 
+        <activity
+            android:name=".activity.PhotoPreviewActivity"
+            android:screenOrientation="portrait"/>
     </application>
 
 </manifest>

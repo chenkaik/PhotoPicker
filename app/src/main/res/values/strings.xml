@@ -1,3 +1,17 @@
 <resources>
     <string name="app_name">Photo</string>
+
+    <string name="photo_directory_all_name">所有图片</string>
+    <string name="photo_directory_all_id">ALL</string>
+
+    <string name="preview">预览</string>
+    <string name="hint_over_the_max_limit">您最多可以选择%1$d张图片</string>
+    <string name="title_photo_picker">图片选择</string>
+    <string name="title_photo_preview">预览</string>
+    <string name="title_photo_preview_count">预览(%1$d/%2$d)</string>
+    <string name="title_right_complete">完成</string>
+    <string name="title_right_complete_with_count">完成(%1$d/%2$d)</string>
+    <string name="no_selected_photo">还没有选择图片</string>
+    <string name="directory_photo_count">%1$d张</string>
+
 </resources>
