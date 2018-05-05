@@ -11,8 +11,57 @@
         android:id="@+id/title_bar_photo_picker"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:background="?colorPrimary"
+        android:background="@color/colorPrimary"
         app:right_text="@string/title_right_complete"
         app:title_name="@string/title_photo_picker" />
+
+    <!--<include layout="@layout/picker_view_title_bar"/>-->
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="@color/photo_picker_fragment_bg_black">
+
+        <android.support.v7.widget.RecyclerView
+            android:id="@+id/rv_photo_picker_fragment"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent" />
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="50dp"
+            android:background="@color/photo_picker_fragment_directory_bg"
+            android:gravity="center_vertical"
+            android:layout_alignParentBottom="true"
+            android:layout_alignParentLeft="true"
+            android:layout_alignParentStart="true">
+
+            <Button
+                android:id="@+id/btn_fragment_photo_picker_directory"
+                style="@style/Widget.AppCompat.ActionButton"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:drawablePadding="5dp"
+                android:drawableRight="@drawable/icon_photo_picker_directory_right_arrow"
+                android:gravity="center"
+                android:text="@string/photo_directory_all_name"
+                android:textColor="@color/white"
+                android:textSize="14sp" />
+
+            <View
+                android:layout_width="0dp"
+                android:layout_height="1px"
+                android:layout_weight="1" />
+
+            <Button
+                android:id="@+id/btn_fragment_photo_picker_preview"
+                style="@style/Widget.AppCompat.ActionButton"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/preview"
+                android:textColor="@color/white"
+                android:textSize="14sp" />
+        </LinearLayout>
+    </RelativeLayout>
 
 </LinearLayout>

@@ -64,6 +64,7 @@ public class TitleBar extends FrameLayout {
      */
     private void initView(Context context) {
         mRootView = (RelativeLayout) View.inflate(context, R.layout.picker_view_title_bar, null);
+//        mRootView = (RelativeLayout) LayoutInflater.from(context).inflate(R.layout.picker_view_title_bar, null);
 
         mToolBar = getViewById(R.id.toolbar_photo_picker);
 

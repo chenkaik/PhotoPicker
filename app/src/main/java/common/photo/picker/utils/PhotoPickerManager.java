@@ -2,9 +2,14 @@ package common.photo.picker.utils;
 
 import android.app.Activity;
 import android.content.Context;
+import android.content.Intent;
 import android.net.Uri;
 
 import java.util.ArrayList;
+import java.util.List;
+
+import common.photo.picker.Constants;
+import common.photo.picker.listener.PhotoPickerStatus;
 
 /**
  * Created by CK on 2017/3/10  12:02.
@@ -18,29 +23,29 @@ public class PhotoPickerManager {
 
     private static final String TAG = "PhotoPickerManager";
 
-//    public static void onActivityResult(int requestCode, int resultCode, Intent data, PhotoPickerStatus photoPickerStatus) {
-//        if (Activity.RESULT_OK == resultCode) {
-//            if (PhotoPicker.RESULT_CODE == requestCode) {
-//                if (null != data) {
-//                    List<String> photoPaths = data.getStringArrayListExtra(Constants.EXTRA_SELECTED_PHOTOS);
-//                    photoPickerStatus.onPhotoPickerSuccess(photoPaths);
-//                } else {
-//                    photoPickerStatus.onPhotoPickerFaile("选择图片失败,请重新选择");
-//                }
-//            } else if (PhotoPreview.RESULT_CODE == requestCode) {//预览与删除后返回
-//                if (null != data) {
-//                    List<String> photoPaths = data.getStringArrayListExtra(Constants.EXTRA_SELECTED_PHOTOS);
-//                    photoPickerStatus.onPreviewBack(photoPaths);
-//                } else {
-//                    photoPickerStatus.onPhotoPickerCancel();
-//                }
-//            } else {
-//                photoPickerStatus.onPhotoPickerFaile(TAG + "onActivityResult requestCode type error.");
-//            }
-//        } else {
-//            photoPickerStatus.onPhotoPickerCancel();
-//        }
-//    }
+    public static void onActivityResult(int requestCode, int resultCode, Intent data, PhotoPickerStatus photoPickerStatus) {
+        if (Activity.RESULT_OK == resultCode) {
+            if (PhotoPicker.RESULT_CODE == requestCode) {
+                if (null != data) {
+                    List<String> photoPaths = data.getStringArrayListExtra(Constants.EXTRA_SELECTED_PHOTOS);
+                    photoPickerStatus.onPhotoPickerSuccess(photoPaths);
+                } else {
+                    photoPickerStatus.onPhotoPickerFaile("选择图片失败,请重新选择");
+                }
+            } else if (PhotoPreview.RESULT_CODE == requestCode) {//预览与删除后返回
+                if (null != data) {
+                    List<String> photoPaths = data.getStringArrayListExtra(Constants.EXTRA_SELECTED_PHOTOS);
+                    photoPickerStatus.onPreviewBack(photoPaths);
+                } else {
+                    photoPickerStatus.onPhotoPickerCancel();
+                }
+            } else {
+                photoPickerStatus.onPhotoPickerFaile(TAG + "onActivityResult requestCode type error.");
+            }
+        } else {
+            photoPickerStatus.onPhotoPickerCancel();
+        }
+    }
 
     /**
      * 跳转到选择照片界面

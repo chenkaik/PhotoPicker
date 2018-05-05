@@ -16,6 +16,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.FrameLayout;
 import android.widget.ImageView;
+import android.widget.Toast;
 
 import java.lang.annotation.Retention;
 import java.lang.annotation.RetentionPolicy;
@@ -26,6 +27,8 @@ import common.photo.picker.Constants;
 import common.photo.picker.R;
 import common.photo.picker.adapter.PhotoAdapter;
 import common.photo.picker.listener.OnSelectorPhotoClickListener;
+import common.photo.picker.listener.PhotoPickerStatus;
+import common.photo.picker.utils.ImageLoader;
 import common.photo.picker.utils.PhotoPickerManager;
 
 /**
@@ -227,35 +230,35 @@ public class PhotoPickerView extends FrameLayout{
      * @param data        Intent对象
      */
     public final void onActivityResult(int requestCode, int resultCode, Intent data) {
-//        if (ACTION_SELECT == mMultPhotoPickerAction) {
-//            PhotoPickerManager.onActivityResult(requestCode, resultCode, data, new PhotoPickerStatus() {
-//                @Override
-//                public void onPhotoPickerSuccess(List<String> selectedPhotoPaths) {
-//                    mPhotoAdapter.refresh(selectedPhotoPaths);
-//                }
-//
-//                @Override
-//                public void onPhotoPickerFaile(String error) {
-//                    Toast.makeText(getContext(), error, Toast.LENGTH_LONG).show();
-//                    mPhotoAdapter.refresh(null);
-//                }
-//
-//                @Override
-//                public void onPhotoPickerCancel() {
-//
-//                }
-//
-//                @Override
-//                public void onPreviewBack(List<String> photoPaths) {
-//                    mPhotoAdapter.refresh(photoPaths);
-//                }
-//            });
-//        } else if (ACTION_CROP == mMultPhotoPickerAction) {
-//            List<String> mSelectedPhotoPath = getSelectedPhotos();
-//            if (null != mSelectedPhotoPath && mSelectedPhotoPath.size() > 0) {
-//                ImageLoader.load(getSelectedPhotos().get(0), mImageView);
-//            }
-//        }
+        if (ACTION_SELECT == mMultPhotoPickerAction) {
+            PhotoPickerManager.onActivityResult(requestCode, resultCode, data, new PhotoPickerStatus() {
+                @Override
+                public void onPhotoPickerSuccess(List<String> selectedPhotoPaths) {
+                    mPhotoAdapter.refresh(selectedPhotoPaths);
+                }
+
+                @Override
+                public void onPhotoPickerFaile(String error) {
+                    Toast.makeText(getContext(), error, Toast.LENGTH_LONG).show();
+                    mPhotoAdapter.refresh(null);
+                }
+
+                @Override
+                public void onPhotoPickerCancel() {
+
+                }
+
+                @Override
+                public void onPreviewBack(List<String> photoPaths) {
+                    mPhotoAdapter.refresh(photoPaths);
+                }
+            });
+        } else if (ACTION_CROP == mMultPhotoPickerAction) {
+            List<String> mSelectedPhotoPath = getSelectedPhotos();
+            if (null != mSelectedPhotoPath && mSelectedPhotoPath.size() > 0) {
+                ImageLoader.load(getSelectedPhotos().get(0), mImageView);
+            }
+        }
     }
 
 }

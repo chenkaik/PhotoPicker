@@ -20,7 +20,7 @@ public class ImageLoader {
      */
     public static void load(String path, @NonNull ImageView imageView) {
         RequestOptions requestOptions = new RequestOptions()
-                .circleCrop()
+                .centerCrop()
                 .dontAnimate(); // centerCrop、fitCenter、circleCrop
         Glide.with(imageView.getContext())
                 .load(path)
