@@ -22,7 +22,7 @@ import common.photo.picker.widget.TouchImageView;
  */
 public class PreviewPhotosAdapter extends PagerAdapter {
 
-    private ArrayList<String> mAllPreviewPhotoPath; // 所有的预览图片路径集合
+    private ArrayList<String> mAllPreviewPhotoPath;//所有的预览图片路径集合
 
     public PreviewPhotosAdapter(ArrayList<String> allPreviewPhotoPath) {
         this.mAllPreviewPhotoPath = allPreviewPhotoPath;
@@ -35,7 +35,8 @@ public class PreviewPhotosAdapter extends PagerAdapter {
         itemView = LayoutInflater.from(context).inflate(R.layout.item_photo_preview, container, false);
         TouchImageView touchImageView = (TouchImageView) itemView.findViewById(R.id.tiv_photo_preview_item_photo);
 
-        ImageLoader.load(mAllPreviewPhotoPath.get(position), touchImageView, R.drawable.icon_preview_photo_loading, R.drawable.icon_preview_photo_error);
+        ImageLoader.load(mAllPreviewPhotoPath.get(position), touchImageView,
+                R.drawable.icon_preview_photo_loading, R.drawable.icon_preview_photo_error);
 
         // 取消预览时点击返回的操作
 //        touchImageView.setOnClickListener(new View.OnClickListener() {

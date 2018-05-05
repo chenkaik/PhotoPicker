@@ -6,7 +6,6 @@ import android.view.View;
 import android.widget.ImageView;
 
 import com.bumptech.glide.Glide;
-import com.bumptech.glide.request.RequestOptions;
 
 /**
  * Created by chenKai on 2018/4/22.
@@ -19,15 +18,15 @@ public class ImageLoader {
      * @param imageView ImageView
      */
     public static void load(String path, @NonNull ImageView imageView) {
-        RequestOptions requestOptions = new RequestOptions()
-                .centerCrop()
-                .dontAnimate(); // centerCrop、fitCenter、circleCrop
+//        RequestOptions requestOptions = new RequestOptions()
+//                .centerCrop()
+//                .dontAnimate(); // centerCrop、fitCenter、circleCrop
         Glide.with(imageView.getContext())
                 .load(path)
                 .thumbnail(0.1f)
-                //.centerCrop()
-                //.dontAnimate()
-                .apply(requestOptions)
+                .centerCrop()
+                .dontAnimate()
+//                .apply(requestOptions)
                 .into(imageView);
     }
 
@@ -40,18 +39,18 @@ public class ImageLoader {
      * @param errorResId       加载失败显示图片
      */
     public static void load(String path, @NonNull ImageView imageView, @DrawableRes int placeholderResId, @DrawableRes int errorResId) {
-        RequestOptions requestOptions = new RequestOptions()
+//        RequestOptions requestOptions = new RequestOptions()
+//                .dontAnimate()
+//                .placeholder(placeholderResId)
+//                .error(errorResId)
+//                .dontAnimate();
+        Glide.with(imageView.getContext())
+                .load(path)
                 .dontAnimate()
                 .placeholder(placeholderResId)
                 .error(errorResId)
-                .dontAnimate();
-        Glide.with(imageView.getContext())
-                .load(path)
-                //.dontAnimate()
-                //.placeholder(placeholderResId)
-                //.error(errorResId)
-                //.dontAnimate()
-                .apply(requestOptions)
+                .dontAnimate()
+//                .apply(requestOptions)
                 .into(imageView);
     }
 
@@ -62,15 +61,15 @@ public class ImageLoader {
      * @param imageView  ImageView
      */
     public static void load(@DrawableRes int resourceId, @NonNull ImageView imageView) {
-        RequestOptions requestOptions = new RequestOptions()
-                //.circleCrop()
-                .centerCrop()
-                .dontAnimate();
+//        RequestOptions requestOptions = new RequestOptions()
+//                //.circleCrop()
+//                .centerCrop()
+//                .dontAnimate();
         Glide.with(imageView.getContext())
                 .load(resourceId)
-                //.centerCrop()
-                //.dontAnimate()
-                .apply(requestOptions)
+                .centerCrop()
+                .dontAnimate()
+//                .apply(requestOptions)
                 .into(imageView);
     }
 
@@ -90,8 +89,8 @@ public class ImageLoader {
      * @param view 加载图片的View
      */
     public static void clear(@NonNull View view) {
-        //Glide.clear(view);
-        Glide.with(view).clear(view);
+        Glide.clear(view);
+//        Glide.with(view).clear(view);
     }
 
 }
