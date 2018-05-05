@@ -1,5 +1,6 @@
 package common.photo.picker.utils;
 
+import android.content.Context;
 import android.support.annotation.DrawableRes;
 import android.support.annotation.NonNull;
 import android.view.View;
@@ -18,7 +19,7 @@ public class ImageLoader {
      * @param imageView ImageView
      */
     public static void load(String path, @NonNull ImageView imageView) {
-//        RequestOptions requestOptions = new RequestOptions()
+//        final RequestOptions requestOptions = new RequestOptions()
 //                .centerCrop()
 //                .dontAnimate(); // centerCrop、fitCenter、circleCrop
         Glide.with(imageView.getContext())
@@ -39,7 +40,7 @@ public class ImageLoader {
      * @param errorResId       加载失败显示图片
      */
     public static void load(String path, @NonNull ImageView imageView, @DrawableRes int placeholderResId, @DrawableRes int errorResId) {
-//        RequestOptions requestOptions = new RequestOptions()
+//        final RequestOptions requestOptions = new RequestOptions()
 //                .dontAnimate()
 //                .placeholder(placeholderResId)
 //                .error(errorResId)
@@ -61,7 +62,7 @@ public class ImageLoader {
      * @param imageView  ImageView
      */
     public static void load(@DrawableRes int resourceId, @NonNull ImageView imageView) {
-//        RequestOptions requestOptions = new RequestOptions()
+//        final RequestOptions requestOptions = new RequestOptions()
 //                //.circleCrop()
 //                .centerCrop()
 //                .dontAnimate();
@@ -91,6 +92,15 @@ public class ImageLoader {
     public static void clear(@NonNull View view) {
         Glide.clear(view);
 //        Glide.with(view).clear(view);
+    }
+
+    /**
+     * 清除内存缓存
+     *
+     * @param context
+     */
+    public static void clearMemory(Context context) {
+        Glide.get(context).clearMemory();
     }
 
 }

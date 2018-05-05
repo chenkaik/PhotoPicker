@@ -19,7 +19,6 @@ import common.photo.picker.adapter.PhotoPickerFragmentRvAdapter;
 import common.photo.picker.entity.Photo;
 import common.photo.picker.entity.PhotoDirectory;
 import common.photo.picker.listener.OnItemSelectStatusChangeListener;
-import common.photo.picker.listener.OnPhotoListItemClickListener;
 import common.photo.picker.utils.MediaStoreHelper;
 import common.photo.picker.utils.PhotoCaptureManager;
 import common.photo.picker.widget.TitleBar;
@@ -27,7 +26,7 @@ import common.photo.picker.widget.TitleBar;
 /**
  * 图片选择页面
  */
-public class PhotoPickerActivity extends BaseActivity implements View.OnClickListener{
+public class PhotoPickerActivity extends BaseActivity implements View.OnClickListener {
 
     private TitleBar mTitleBar;
     private ArrayList<String> mOriginalSelectedDatas; // 原始数据
@@ -35,10 +34,8 @@ public class PhotoPickerActivity extends BaseActivity implements View.OnClickLis
     private PhotoCaptureManager mPhotoCaptureManager; // 照片捕获管理器
     private PhotoPickerFragmentRvAdapter mPhotoAdapter; // 照片列表适配器
     private List<PhotoDirectory> mPhotoDirectoryList = new ArrayList<>(); // 所有的照片
-    //private List<String> mOriginalPhotos; // 原始的照片
     private Button mBtnDirectory; // 目录选择按钮
-    private Button mBtnPreview;//预览
-    //private Context mContext;
+
 //    private DirectorySelectorDialog mDirectorySelectorDialog; // 目录选择Dialog
 
     @Override
@@ -49,22 +46,18 @@ public class PhotoPickerActivity extends BaseActivity implements View.OnClickLis
         initExtras();
         mPhotoAdapter = new PhotoPickerFragmentRvAdapter(PhotoPickerActivity.this, mPhotoDirectoryList, mOriginalSelectedDatas);
         mPhotoCaptureManager = new PhotoCaptureManager(PhotoPickerActivity.this); // 照片捕获管理器
-        getAllPhotos();
         RecyclerView rvPhoto = (RecyclerView) findViewById(R.id.rv_photo_picker_fragment);
         StaggeredGridLayoutManager staggeredGridLayoutManager = new StaggeredGridLayoutManager(Constants.GRID_COLUMN_COUNT, StaggeredGridLayoutManager.VERTICAL);
         rvPhoto.setLayoutManager(staggeredGridLayoutManager);
         rvPhoto.setAdapter(mPhotoAdapter);
-
+        getAllPhotos();
         mBtnDirectory = (Button) findViewById(R.id.btn_fragment_photo_picker_directory);
-        mBtnPreview = (Button) findViewById(R.id.btn_fragment_photo_picker_preview);
-
         mBtnDirectory.setOnClickListener(this);
-        mBtnPreview.setOnClickListener(this);
         initEvent();
         setListener();
     }
 
-    private void setListener() { //照片选择框点击事件
+    private void setListener() { // 照片选择框点击事件
         mPhotoAdapter.setOnItemSelectStatusChangeListener(new OnItemSelectStatusChangeListener() {
             @Override
             public boolean onItemSelectStatusChange(int position, Photo photo, boolean isSelected, int selectedCount) {
@@ -112,28 +105,15 @@ public class PhotoPickerActivity extends BaseActivity implements View.OnClickLis
     }
 
     private void initEvent() {
-        // 图片预览点击事件回调
-        mPhotoAdapter.setOnPhotoListItemClickeListener(new OnPhotoListItemClickListener() {
-            @Override
-            public void onPhotoListItemClick(View view, int position, boolean isShowCamera) {//点击预览
-                int currentIndex = isShowCamera ? position - 1 : position;
-                ArrayList<String> allPreviewPhotoPaths = mPhotoAdapter.getCurrentDirectoryPhotosPath();
-                int[] screenLocation = new int[2];
-                view.getLocationOnScreen(screenLocation);
-
-//                PhotoPreviewFragment photoPreviewFragment = PhotoPreviewFragment.newInstance(allPreviewPhotoPaths, currentIndex, screenLocation, view.getWidth(), view.getHeight());
-//                ((PhotoPickerActivity) getActivity()).addPreviewFragment(photoPreviewFragment);
-            }
-        });
         mPhotoAdapter.setOnCameraClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) { // 拍照的点击事件
                 if (null == mPhotoCaptureManager) {
-                    //创建照片捕获去器
+                    // 创建照片捕获去器
                     mPhotoCaptureManager = new PhotoCaptureManager(PhotoPickerActivity.this);
                 }
                 try {
-                    //调用系统相机拍照
+                    // 调用系统相机拍照
                     mPhotoCaptureManager.startTakePicture(PhotoPickerActivity.this);
                 } catch (IOException e) {
                     e.printStackTrace();
@@ -182,7 +162,17 @@ public class PhotoPickerActivity extends BaseActivity implements View.OnClickLis
 
     @Override
     public void onClick(View v) {
-
+        if (R.id.btn_fragment_photo_picker_directory == v.getId()) { // 目录选择按钮
+            Toast.makeText(this, "点击了目录选择", Toast.LENGTH_SHORT).show();
+//            if (null == mDirectorySelectorDialog) {
+//                createDirectorySelectorDialog();
+//            }
+//            if (mDirectorySelectorDialog.isShowing()) {
+//                mDirectorySelectorDialog.dismiss();
+//            } else {
+//                mDirectorySelectorDialog.show();
+//            }
+        }
     }
 
     @Override

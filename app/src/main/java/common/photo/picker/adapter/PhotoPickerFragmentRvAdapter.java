@@ -3,6 +3,7 @@ package common.photo.picker.adapter;
 import android.content.Context;
 import android.support.v7.widget.RecyclerView;
 import android.util.DisplayMetrics;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -35,6 +36,7 @@ import common.photo.picker.utils.UriUtils;
  * @describe 选择照片 {@link PhotoPickerFragment}中照片列表适配器
  */
 public class PhotoPickerFragmentRvAdapter extends SelectManagerAdapter<PhotoPickerFragmentRvAdapter.PhotoPickerViewHolder> {
+    private static final String TAG = "PhotoPickerFragmentRvAd";
     private Context mContext;
     private LayoutInflater mLayoutInflater;
 
@@ -77,6 +79,7 @@ public class PhotoPickerFragmentRvAdapter extends SelectManagerAdapter<PhotoPick
 
     @Override
     public PhotoPickerViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
+        Log.e(TAG, "onCreateViewHolder: " + viewType);
         View itemView = mLayoutInflater.inflate(R.layout.item_photo_picker, parent, false);
 
         PhotoPickerViewHolder holder = new PhotoPickerViewHolder(itemView);
@@ -93,6 +96,7 @@ public class PhotoPickerFragmentRvAdapter extends SelectManagerAdapter<PhotoPick
 
     @Override
     public void onBindViewHolder(final PhotoPickerViewHolder holder, int position) {
+        Log.e(TAG, "onBindViewHolder: " + position);
         int itemType = getItemViewType(position);
         if (TYPE_CAMERA == itemType) {
             //设置拍照按钮图片
@@ -184,6 +188,7 @@ public class PhotoPickerFragmentRvAdapter extends SelectManagerAdapter<PhotoPick
 
     @Override
     public int getItemCount() {
+        //Log.e(TAG, "getItemCount: " );
         int photosCount = mPhotoDirectoryList.size() == 0 ? 0 : getCurrentDirectoryOfPhotos().size();
         if (isShowCamera()) {
             photosCount++;
@@ -193,6 +198,7 @@ public class PhotoPickerFragmentRvAdapter extends SelectManagerAdapter<PhotoPick
 
     @Override
     public int getItemViewType(int position) {
+        //Log.e(TAG, "getItemViewType: " + position);
         return (isShowCamera() && 0 == position) ? TYPE_CAMERA : TYPE_PHOTO;
     }
 

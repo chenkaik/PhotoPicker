@@ -54,6 +54,9 @@ public class MediaStoreHelper {
             if (null == data) {
                 return;
             }
+//            if(!data.moveToFirst()){ // 此处注意是v7包27版本 LoaderManager引起的问题
+//                return;
+//            }
             List<PhotoDirectory> photoDirectorys = new ArrayList<>();
             PhotoDirectory photoDirecyoryAll = new PhotoDirectory(contexts.get().getString(R.string.photo_directory_all_id), contexts.get().getString(R.string.photo_directory_all_name));
             photoDirecyoryAll.setSelected(true);//设置默认选中所有照片目录
