@@ -1,8 +1,14 @@
 package common.photo.picker.activity;
 
+import android.Manifest;
 import android.app.Activity;
 import android.content.Intent;
+import android.content.pm.PackageManager;
+import android.os.Build;
 import android.os.Bundle;
+import android.support.annotation.NonNull;
+import android.support.v4.app.ActivityCompat;
+import android.support.v4.content.ContextCompat;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.StaggeredGridLayoutManager;
 import android.view.View;
@@ -44,6 +50,9 @@ public class PhotoPickerActivity extends BaseActivity implements View.OnClickLis
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_photo_picker);
+        if (null != mPhotoCaptureManager && null != savedInstanceState) {
+            mPhotoCaptureManager.onRestoreInstanceState(savedInstanceState);
+        }
         mTitleBar = (TitleBar) findViewById(R.id.title_bar_photo_picker);
         initExtras();
         mPhotoAdapter = new PhotoPickerFragmentRvAdapter(PhotoPickerActivity.this, mPhotoDirectoryList, mOriginalSelectedDatas);
@@ -110,18 +119,47 @@ public class PhotoPickerActivity extends BaseActivity implements View.OnClickLis
         mPhotoAdapter.setOnCameraClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) { // 拍照的点击事件
-                if (null == mPhotoCaptureManager) {
-                    // 创建照片捕获去器
-                    mPhotoCaptureManager = new PhotoCaptureManager(PhotoPickerActivity.this);
-                }
-                try {
-                    // 调用系统相机拍照
-                    mPhotoCaptureManager.startTakePicture(PhotoPickerActivity.this);
-                } catch (IOException e) {
-                    e.printStackTrace();
+                if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) { // 申请相机的权限
+                    if (ContextCompat.checkSelfPermission(PhotoPickerActivity.this, Manifest.permission.CAMERA) != PackageManager.PERMISSION_GRANTED) {
+                        ActivityCompat.requestPermissions(PhotoPickerActivity.this, new String[]{Manifest.permission.CAMERA}, 100);
+                    } else {
+                        openCamera();
+                    }
+                } else {
+                    openCamera();
                 }
             }
         });
+
+    }
+
+    public void openCamera() {
+        if (null == mPhotoCaptureManager) {
+            // 创建照片捕获去器
+            mPhotoCaptureManager = new PhotoCaptureManager(PhotoPickerActivity.this);
+        }
+        try {
+            // 调用系统相机拍照
+            mPhotoCaptureManager.startTakePicture(PhotoPickerActivity.this);
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
+
+    @Override
+    public void onRequestPermissionsResult(int requestCode, @NonNull String[] permissions, @NonNull int[] grantResults) {
+        super.onRequestPermissionsResult(requestCode, permissions, grantResults);
+        switch (requestCode) {
+            case 100:
+                if (grantResults.length > 0 && grantResults[0] == PackageManager.PERMISSION_GRANTED) {
+                    openCamera();
+                } else {
+                    Toast.makeText(this, "无访问相机权限，无法进行拍照", Toast.LENGTH_SHORT).show();
+                }
+                break;
+            default:
+                break;
+        }
     }
 
     /**
@@ -137,9 +175,9 @@ public class PhotoPickerActivity extends BaseActivity implements View.OnClickLis
                 mPhotoDirectoryList.addAll(photoDirs);
 
                 mPhotoAdapter.notifyDataSetChanged();
-//                if (null != mDirectorySelectorDialog) {//刷新目录列表数据
-//                    mDirectorySelectorDialog.refreshDirectoryListData(mPhotoDirectoryList);
-//                }
+                if (null != mDirectorySelectorDialog) {//刷新目录列表数据
+                    mDirectorySelectorDialog.refreshDirectoryListData(mPhotoDirectoryList);
+                }
             }
         });
     }
@@ -208,6 +246,14 @@ public class PhotoPickerActivity extends BaseActivity implements View.OnClickLis
                 mPhotoAdapter.notifyDataSetChanged();
             }
         }
+    }
+
+    @Override
+    public void onSaveInstanceState(Bundle outState) {
+        if (null != mPhotoCaptureManager) {
+            mPhotoCaptureManager.onSaveInstanceState(outState);
+        }
+        super.onSaveInstanceState(outState);
     }
 
 }
