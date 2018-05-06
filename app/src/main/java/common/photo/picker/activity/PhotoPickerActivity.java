@@ -19,8 +19,10 @@ import common.photo.picker.adapter.PhotoPickerFragmentRvAdapter;
 import common.photo.picker.entity.Photo;
 import common.photo.picker.entity.PhotoDirectory;
 import common.photo.picker.listener.OnItemSelectStatusChangeListener;
+import common.photo.picker.listener.OnPhotoDirectoryItemClickListener;
 import common.photo.picker.utils.MediaStoreHelper;
 import common.photo.picker.utils.PhotoCaptureManager;
+import common.photo.picker.widget.DirectorySelectorDialog;
 import common.photo.picker.widget.TitleBar;
 
 /**
@@ -36,7 +38,7 @@ public class PhotoPickerActivity extends BaseActivity implements View.OnClickLis
     private List<PhotoDirectory> mPhotoDirectoryList = new ArrayList<>(); // 所有的照片
     private Button mBtnDirectory; // 目录选择按钮
 
-//    private DirectorySelectorDialog mDirectorySelectorDialog; // 目录选择Dialog
+    private DirectorySelectorDialog mDirectorySelectorDialog; // 目录选择Dialog
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -163,16 +165,33 @@ public class PhotoPickerActivity extends BaseActivity implements View.OnClickLis
     @Override
     public void onClick(View v) {
         if (R.id.btn_fragment_photo_picker_directory == v.getId()) { // 目录选择按钮
-            Toast.makeText(this, "点击了目录选择", Toast.LENGTH_SHORT).show();
-//            if (null == mDirectorySelectorDialog) {
-//                createDirectorySelectorDialog();
-//            }
-//            if (mDirectorySelectorDialog.isShowing()) {
-//                mDirectorySelectorDialog.dismiss();
-//            } else {
-//                mDirectorySelectorDialog.show();
-//            }
+            if (null == mDirectorySelectorDialog) {
+                createDirectorySelectorDialog();
+            }
+            if (mDirectorySelectorDialog.isShowing()) {
+                mDirectorySelectorDialog.dismiss();
+            } else {
+                mDirectorySelectorDialog.show();
+            }
         }
+    }
+
+    /**
+     * 创建DirectorySelectorDialog对象
+     */
+    private void createDirectorySelectorDialog() {
+        mDirectorySelectorDialog = new DirectorySelectorDialog(PhotoPickerActivity.this, mPhotoDirectoryList,
+                new OnPhotoDirectoryItemClickListener() {
+                    @Override
+                    public void onPhotoDirectoryItemClick(int position) {
+                        //目录列表子条目点击回调
+                        mBtnDirectory.setText(mPhotoDirectoryList.get(position).getName());
+                        mPhotoAdapter.setCurrentDirectoryIndex(position);
+                        mPhotoAdapter.notifyDataSetChanged();
+
+                        mDirectorySelectorDialog.dismiss();
+                    }
+                });
     }
 
     @Override

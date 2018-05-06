@@ -13,4 +13,7 @@
     <color name="white">#ffffffff</color>
     <color name="photo_picker_fragment_bg_black">#ff000000</color>
     <color name="photo_picker_fragment_directory_bg">#e54d4f4c</color>
+
+    <color name="transparency">#00000000</color>
+    <color name="transparency_500">#80000000</color>
 </resources>
