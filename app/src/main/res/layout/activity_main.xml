@@ -14,4 +14,10 @@
         app:is_show_gif="true"
         app:max_picker_photo_count="9" />
 
+    <Button
+        android:id="@+id/btn_upload"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="测试上传"/>
+
 </LinearLayout>
