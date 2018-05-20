@@ -22,6 +22,7 @@ import okhttp3.MediaType;
 import okhttp3.MultipartBody;
 import okhttp3.OkHttpClient;
 import okhttp3.RequestBody;
+import okhttp3.logging.HttpLoggingInterceptor;
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
@@ -47,7 +48,7 @@ public class MainActivity extends BaseActivity {
                 .baseUrl("http://192.168.31.190:8080/") //设置baseUrl,注意baseUrl必须后缀"/"
                 .addConverterFactory(ScalarsConverterFactory.create()) // 支持返回值为String
                 .addConverterFactory(GsonConverterFactory.create()) // 支持Gson转换器
-                .client(new OkHttpClient())
+                .client(buildOkHttpClient())
                 .build();
         test = retrofit.create(Test.class);
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) { // 申请相机的权限
@@ -108,6 +109,22 @@ public class MainActivity extends BaseActivity {
             default:
                 break;
         }
+    }
+
+    private static OkHttpClient client;
+
+    public static OkHttpClient buildOkHttpClient() {
+
+        if (client == null) {
+            client = new OkHttpClient.Builder()
+                    // 日志拦截器
+                    .addInterceptor(new HttpLoggingInterceptor().setLevel(HttpLoggingInterceptor.Level.BODY))
+                    //失败重连
+                    //.retryOnConnectionFailure(true)
+                    .build();
+        }
+
+        return client;
     }
 
 }
