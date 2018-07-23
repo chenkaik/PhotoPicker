@@ -9,6 +9,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
 
 import java.util.ArrayList;
@@ -68,7 +69,15 @@ public class PhotoAdapter extends RecyclerView.Adapter<PhotoAdapter.PhotoViewHol
             if (position == getItemCount() - 1) { // 最后一张图片位置(显示照片或者+)
                 if (null != mSelectedPhotos && mSelectedPhotos.size() == mMaxPickerPhotoCount) { // 选择照片数量已达上限
                     holder.rlPhotoItem.setVisibility(View.GONE);
+                    RecyclerView.LayoutParams param = (RecyclerView.LayoutParams) holder.rlPhotoItem.getLayoutParams();
+                    param.height = 0;
+                    param.width = 0;
+                    holder.rlPhotoItem.setLayoutParams(param);
                 } else { // 选择照片+
+                    RecyclerView.LayoutParams param = (RecyclerView.LayoutParams) holder.rlPhotoItem.getLayoutParams();
+                    param.height = LinearLayout.LayoutParams.WRAP_CONTENT;
+                    param.width = LinearLayout.LayoutParams.MATCH_PARENT;
+                    holder.rlPhotoItem.setLayoutParams(param);
                     holder.ivDelete.setVisibility(View.GONE); // 删除照片隐藏
                     ImageLoader.load(R.drawable.icon_add_picture, holder.ivPhoto);
                     holder.ivPhoto.setOnClickListener(new View.OnClickListener() {

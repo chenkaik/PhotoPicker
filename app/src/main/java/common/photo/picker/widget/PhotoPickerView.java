@@ -145,7 +145,7 @@ public class PhotoPickerView extends FrameLayout{
         mPhotoAdapter.setMultPhotoPickerAction(mMultPhotoPickerAction) // 设置操作模式
                 .setOnSelectorPhotoClickListener(mOnSelectorPhotoClickListener) // 选择照片按钮点击事件
                 .setMaxPickerPhotoCount(mMaxPickerPhotoCount); // 选择照片最大数量
-
+        mPhotoAdapter.setHasStableIds(true);
         mRecyclerView.setAdapter(mPhotoAdapter);
     }
 
